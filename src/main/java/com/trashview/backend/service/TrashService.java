@@ -1,5 +1,6 @@
 package com.trashview.backend.service;
 
+import com.trashview.backend.exception.TrashNotfoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -16,13 +17,11 @@ public class TrashService {
         return trash;
     }
 
-    public String getTrashById(@PathVariable String id) {
-        try{
-            return trash.get(Integer.parseInt(id));
-        }catch(NumberFormatException e){
-            return "Give valid Trash ID no";
-        }catch (IndexOutOfBoundsException e){
-            return "Give Trash ID only from 0 to " + (trash.size()-1);
+    public String getTrashById(@PathVariable int id) {
+        if(id < 0 || id >= trash.size()) {
+            throw new TrashNotfoundException("Give valid id from 0 to "+(trash.size()-1) );
         }
+        return trash.get(id);
+
     }
 }

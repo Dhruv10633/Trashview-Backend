@@ -24,7 +24,7 @@ public class TrashController {
     }
 
     @GetMapping("/api/trash/{id}")
-    public String getTrashById(@PathVariable String id) {
+    public String getTrashById(@PathVariable int id) {
         return trashService.getTrashById(id);
     }
 
